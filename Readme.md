@@ -12,4 +12,5 @@ Then run the container e.g. with
 
 ```bash
 docker run --rm -t vcity:py3dtilers geojson-tiler --help
+docker run --rm -t vcity/py3dtilers citygml-tiler --help
 ```
