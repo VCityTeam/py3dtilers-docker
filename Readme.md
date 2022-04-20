@@ -31,7 +31,7 @@ docker run --name 3dcitydb --network citydb-net -p 5432:5432 -d \
     -e POSTGRES_USER=my_postgres \
     -e POSTGIS_SFCGAL=true \
   3dcitydb/3dcitydb-pg:14-3.2-4.2.0
-PGPASSWORD=my_dummy_password psql -h localhost -p 5432 -U my_postgres -d my_3citydb -c "\dt"
+PGPASSWORD=my_dummy_password psql -h localhost -p 5432 -U my_postgres -d my_3dcitydb -c "\dt"
 ```
 
 References:
@@ -45,6 +45,18 @@ docker pull 3dcitydb/impexp:5.0.0
 docker run --rm --network citydb-net --name 3dcitydb-impexp \
     -v $(pwd):/data \
     3dcitydb/impexp:5.0.0 import \                          
-    -H 3dcitydb -d my_3citydb -u my_postgres -p my_dummy_password \
+    -H 3dcitydb -d my_3dcitydb -u my_postgres -p my_dummy_password \
     *.gml
+```
+
+```bash
+echo "PG_HOST: 3dcitydb"               > Config.yml
+echo "PG_PORT: 5432"                  >> Config.yml
+echo "PG_NAME: my_3dcitydb"           >> Config.yml
+echo "PG_USER: my_postgres"           >> Config.yml
+echo "PG_PASSWORD: my_dummy_password" >> Config.yml
+git clone git@github.com:VCityTeam/py3dtilers-docker.git
+cd py3dtilers-docker
+docker build -t vcity/py3dtilers Context
+docker run --rm --network citydb-net -v $(pwd):/data -t vcity/py3dtilers citygml-tiler --db_config_path /data/Config.yml
 ```
