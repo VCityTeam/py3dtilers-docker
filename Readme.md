@@ -42,10 +42,7 @@ wget https://download.data.grandlyon.com/files/grandlyon/imagerie/2018/maquette/
 unzip LYON_1ER_2018.zip
 cd LYON_1ER_2018
 docker pull 3dcitydb/impexp:5.0.0
-docker run --rm --name 3dcitydb-impexp -v $(pwd):/data  3dcitydb/impexp:5.0.0 import -H 10.42.206.62 -d my_3citydb -u my_postgres -p my_dummy_password *.gml
-# Retrieve your IP w.x.y.z number e.g. with "/sbin/ifconfig -a | grep -i inet"
-# 
-export MY_IP_NUMBER=<w.x.y.z>     
+docker run --rm --name 3dcitydb-impexp -v $(pwd):/data  3dcitydb/impexp:5.0.0 import -H 10.42.206.62 -d my_3citydb -u my_postgres -p my_dummy_password *.gml    
 
 docker run --rm --network citydb-net --name 3dcitydb-impexp \
     -v $(pwd):/data \
