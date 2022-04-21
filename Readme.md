@@ -27,7 +27,7 @@ docker run --name 3dcitydb --network citydb-net -p 5432:5432 -d \
     -e POSTGRES_PASSWORD=my_dummy_password \
     -e SRID=3946 \
     -e HEIGHT_EPSG=espg:3946 \
-    -e POSTGRES_DB=my_3dcitydb \  
+    -e POSTGRES_DB=my_3dcitydb \
     -e POSTGRES_USER=my_postgres \
     -e POSTGIS_SFCGAL=true \
   3dcitydb/3dcitydb-pg:14-3.2-4.2.0
