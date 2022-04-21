@@ -1,5 +1,7 @@
 # Dockerized py3dtilers application
 
+## Building and running a py3dtilers application (with docker)
+
 This container wraps [p3dtilers](https://github.com/VCityTeam/py3dtilers) (a Python tool and library).
 
 Build the docker image with
@@ -15,8 +17,14 @@ docker run --rm -t vcity/py3dtilers geojson-tiler --help
 docker run --rm -t vcity/py3dtilers citygml-tiler --help
 ```
 
-## Running the tiler with docker
+## Usage example: running the citygml-tiler (with docker)
 
+Running the [citygml tiler of py3dtilers](https://github.com/VCityTeam/py3dtilers/blob/master/py3dtilers/CityTiler/README.md)
+requires a [3DCity database](https://www.3dcitydb.org/3dcitydb/) loaded with imported `citygml` content.
+The following set of commands (requiring a functionnal [docker client](https://en.wikipedia.org/wiki/Docker_(software)) 
+illustrates a full citygml tiling process realized from the CLI: 
+
+### 1. Start a 3DCity database
 References:
 * [3D City Database using Docker](https://3dcitydb-docs.readthedocs.io/en/version-2022.0/3dcitydb/docker.html)
 * [ExpeData shellscript version](https://github.com/VCityTeam/ExpeData-Workflows_testing/blob/master/ShellScriptCallingDocker/LaunchDataBaseSingleServer.sh.j2)
@@ -34,6 +42,7 @@ docker run --name 3dcitydb --network citydb-net -p 5432:5432 -d \
 PGPASSWORD=my_dummy_password psql -h localhost -p 5432 -U my_postgres -d my_3dcitydb -c "\dt"
 ```
 
+### 2. Download CityGML files and import them to 3DCity database
 References:
 * [Using the Importer/Exporter with Docker](https://3dcitydb-docs.readthedocs.io/en/version-2022.0/impexp/docker.html)
 * [ExpeData shellscript version: importation](https://github.com/VCityTeam/ExpeData-Workflows_testing/blob/master/ShellScriptCallingDocker/DockerLoad3dCityDataBase.sh)
@@ -49,6 +58,7 @@ docker run --rm --network citydb-net --name 3dcitydb-impexp \
     *.gml
 ```
 
+### 3. Run the citygml tiler of py3dtilers
 ```bash
 echo "PG_HOST: 3dcitydb"               > Config.yml
 echo "PG_PORT: 5432"                  >> Config.yml
