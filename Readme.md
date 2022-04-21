@@ -44,7 +44,7 @@ cd LYON_1ER_2018
 docker pull 3dcitydb/impexp:5.0.0
 docker run --rm --network citydb-net --name 3dcitydb-impexp \
     -v $(pwd):/data \
-    3dcitydb/impexp:5.0.0 import \                          
+    3dcitydb/impexp:5.0.0 import \
     -H 3dcitydb -d my_3dcitydb -u my_postgres -p my_dummy_password \
     *.gml
 ```
