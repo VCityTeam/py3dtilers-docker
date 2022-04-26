@@ -49,6 +49,7 @@ References:
 ```bash
 wget https://download.data.grandlyon.com/files/grandlyon/imagerie/2018/maquette/LYON_1ER_2018.zip
 unzip LYON_1ER_2018.zip
+rm -f LYON_1ER_2018.zip
 cd LYON_1ER_2018
 docker pull 3dcitydb/impexp:5.0.0
 docker run --rm --network citydb-net --name 3dcitydb-impexp \
