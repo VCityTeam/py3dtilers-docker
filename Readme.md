@@ -31,7 +31,7 @@ References:
 ```bash
 docker pull 3dcitydb/3dcitydb-pg:14-3.2-4.2.0
 docker network create citydb-net
-docker run --name 3dcitydb --network citydb-net -p 5432:5432 -d \
+docker run --rm -d --name 3dcitydb --network citydb-net -p 5432:5432 \
     -e POSTGRES_PASSWORD=my_dummy_password \
     -e SRID=3946 \
     -e HEIGHT_EPSG=espg:3946 \
