@@ -49,13 +49,11 @@ References:
 wget https://download.data.grandlyon.com/files/grandlyon/imagerie/2018/maquette/LYON_1ER_2018.zip
 unzip LYON_1ER_2018.zip
 rm -f LYON_1ER_2018.zip
-cd LYON_1ER_2018
-docker pull 3dcitydb/impexp:5.0.0
 docker run --rm --network citydb-net --name 3dcitydb-impexp \
     -v $(pwd):/data \
     3dcitydb/impexp:5.0.0 import \
     -H 3dcitydb -d my_3dcitydb -u my_postgres -p my_dummy_password \
-    *.gml
+    LYON_1ER_2018/*.gml
 ```
 
 ### 3. Run the citygml tiler of py3dtilers
