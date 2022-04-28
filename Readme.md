@@ -29,7 +29,6 @@ References:
 * [3D City Database using Docker](https://3dcitydb-docs.readthedocs.io/en/version-2022.0/3dcitydb/docker.html)
 * [ExpeData shellscript version](https://github.com/VCityTeam/ExpeData-Workflows_testing/blob/master/ShellScriptCallingDocker/LaunchDataBaseSingleServer.sh.j2)
 ```bash
-docker pull 3dcitydb/3dcitydb-pg:14-3.2-4.2.0
 docker network create citydb-net
 docker run --rm -d --name 3dcitydb --network citydb-net -p 5432:5432 \
     -e POSTGRES_PASSWORD=my_dummy_password \
