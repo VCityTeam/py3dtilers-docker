@@ -45,10 +45,18 @@ PGPASSWORD=my_dummy_password psql -h localhost -p 5432 -U my_postgres -d my_3dci
 References:
 * [Using the Importer/Exporter with Docker](https://3dcitydb-docs.readthedocs.io/en/version-2022.0/impexp/docker.html)
 * [ExpeData shellscript version: importation](https://github.com/VCityTeam/ExpeData-Workflows_testing/blob/master/ShellScriptCallingDocker/DockerLoad3dCityDataBase.sh)
+
+Download CityGML data to your local filesystem e.g.
+
 ```bash
 wget https://download.data.grandlyon.com/files/grandlyon/imagerie/2018/maquette/LYON_1ER_2018.zip
 unzip LYON_1ER_2018.zip
 rm -f LYON_1ER_2018.zip
+```
+
+Import local CityGML files to 3DCity database
+
+```bash
 docker run --rm --network citydb-net --name 3dcitydb-impexp \
     -v $(pwd):/data \
     3dcitydb/impexp:5.0.0 import \
@@ -57,14 +65,21 @@ docker run --rm --network citydb-net --name 3dcitydb-impexp \
 ```
 
 ### 3. Run the citygml tiler of py3dtilers
+
+Create py3dTilers configuration file describing access to 3dCityDB occurence
+
 ```bash
 echo "PG_HOST: 3dcitydb"               > Config.yml
 echo "PG_PORT: 5432"                  >> Config.yml
 echo "PG_NAME: my_3dcitydb"           >> Config.yml
 echo "PG_USER: my_postgres"           >> Config.yml
 echo "PG_PASSWORD: my_dummy_password" >> Config.yml
+```
+
+Build the `CityTiler` and run it against current state of 3dCityDB occurence
+
+```bash
 git clone git@github.com:VCityTeam/py3dtilers-docker.git
-cd py3dtilers-docker
-docker build -t vcity/py3dtilers Context
+docker build -t vcity/py3dtilers py3dtilers-docker/Context
 docker run --rm --network citydb-net -v $(pwd):/data -t vcity/py3dtilers citygml-tiler --db_config_path /data/Config.yml
 ```
