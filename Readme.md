@@ -17,6 +17,20 @@ docker run --rm -t vcity/py3dtilers geojson-tiler --help
 docker run --rm -t vcity/py3dtilers citygml-tiler --help
 ```
 
+## Usage example : GeoJson : 3D Tiles colored by height
+
+Download the GeoJSON file available [here](https://raw.githubusercontent.com/VCityTeam/UD-Sample-data/master/GeoJSON/buildings_lyon1.geojson).
+
+```bash
+docker run --rm -v <absolute/path/to/folder>:/mnt/data/ -t vcity/py3dtilers geojson-tiler --path /mnt/data/buildings_lyon1.geojson --add_color HAUTEUR -o /mnt/data/buildings_colored_by_height
+```
+
+Where `<absolute/path/to/folder>` is the __absolute path__ to the folder containing the GeoJSON file.
+
+The tileset will be created in a folder named `<absolute/path/to/folder>/buildings_colored_by_height`.
+
+
+
 ## Usage example: running the citygml-tiler (with docker)
 
 Running the [citygml tiler of py3dtilers](https://github.com/VCityTeam/py3dtilers/blob/master/py3dtilers/CityTiler/README.md)
