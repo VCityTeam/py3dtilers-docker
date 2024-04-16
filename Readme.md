@@ -4,9 +4,15 @@
 
 This container wraps [p3dtilers](https://github.com/VCityTeam/py3dtilers) (a Python tool and library).
 
-Build the docker image with
+Build the docker image without cloning this repository with
 
 ```bash
+docker build -t vcity/py3dtilers https://github.com/VCityTeam/py3dtilers-docker.git -f Context/Dockerfile
+```
+
+Or you can clone this repository and then proceed with the building with
+```bash
+git clone https://github.com/VCityTeam/py3dtilers-docker.git
 docker build -t vcity/py3dtilers Context
 ```
 
