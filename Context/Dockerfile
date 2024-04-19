@@ -3,12 +3,8 @@
 #   https://pythonspeed.com/articles/base-image-python-docker-images/
 #   https://stackoverflow.com/questions/52740556/python-3-7-docker-images
 
-FROM python:3.9-buster
+FROM python:3.10
 
-RUN set -ex \
-  && git clone https://github.com/VCityTeam/py3dtilers.git \
-  && mv py3dtilers/ py3dtilers.git \
-  && cd py3dtilers.git \
-  && pip install -e .
-
-WORKDIR py3dtilers.git/
+RUN git clone https://github.com/VCityTeam/py3dtilers.git
+WORKDIR py3dtilers
+RUN pip install -e .
