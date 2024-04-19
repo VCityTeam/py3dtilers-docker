@@ -13,7 +13,7 @@ jobs:
         - docker run --rm -t vcity:py3dtilers geojson-tiler --help
     - stage: "Markdown link checks"
       language: node_js
-      node_js: 14
+      node_js: 18
       script:
         - npm install --global remark-cli remark-validate-links
         - remark -u validate-links .
