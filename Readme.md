@@ -103,3 +103,25 @@ git clone git@github.com:VCityTeam/py3dtilers-docker.git
 docker build -t vcity/py3dtilers py3dtilers-docker/Context
 docker run --rm --network citydb-net -v $(pwd):/data -t vcity/py3dtilers citygml-tiler --db_config_path /data/Config.yml
 ```
+
+## Known problems
+
+### Build fails on macOS/Silicon
+
+On macOS 14.5 (Sonoma) with an M3 Pro (Silicon series) chip, the docker build command 
+
+```bash
+docker build -t vcity/py3dtilers https://github.com/VCityTeam/py3dtilers-docker.git -f Context/Dockerfile
+```
+
+will fail on the `pip install` command that triggers an error of the form
+
+```bash
+Could not find a version that satisfies the requirement ifcopenshell (from py3dtilers)`.
+```
+
+A workaround consists in cross building for x86 with the following docker build command
+
+```bash
+docker buildx build --platform linux/amd64 -t vcity/py3dtilers https://github.com/VCityTeam/py3dtilers-docker.git -f Context/Dockerfile
+```
